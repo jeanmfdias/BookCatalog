@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BookEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BookEntityRepository::class)]
@@ -24,6 +25,10 @@ class BookEntity
 
     #[ORM\Column(length: 4)]
     private ?string $published_year = null;
+
+    #[ORM\ManyToMany(targetEntity: AuthorEntity::class, inversedBy: 'books')]
+    #[ORM\JoinTable(name: 'book_author')]
+    private Collection $authors;
 
     public function getId(): ?int
     {
@@ -74,6 +79,27 @@ class BookEntity
     public function setPublishedYear(string $published_year): static
     {
         $this->published_year = $published_year;
+
+        return $this;
+    }
+
+    public function getAuthors(): Collection
+    {
+        return $this->authors;
+    }
+
+    public function addAuthor(AuthorEntity $author): static
+    {
+        if (!$this->authors->contains($author)) {
+            $this->authors->add($author);
+        }
+
+        return $this;
+    }
+
+    public function removeAuthor(AuthorEntity $author): static
+    {
+        $this->authors->removeElement($author);
 
         return $this;
     }

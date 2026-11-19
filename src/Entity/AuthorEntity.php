@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AuthorEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AuthorEntityRepository::class)]
@@ -15,6 +16,10 @@ class AuthorEntity
 
     #[ORM\Column(length: 40)]
     private ?string $name = null;
+
+    #[ORM\ManyToMany(targetEntity: BookEntity::class, inversedBy: 'authors')]
+    #[ORM\JoinTable(name: 'book_author')]
+    private Collection $books;
 
     public function getId(): ?int
     {
@@ -29,6 +34,27 @@ class AuthorEntity
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getBooks(): Collection
+    {
+        return $this->books;
+    }
+
+    public function addBook(BookEntity $book): static
+    {
+        if (!$this->books->contains($book)) {
+            $this->books->add($book);
+        }
+
+        return $this;
+    }
+
+    public function removeBook(BookEntity $book): static
+    {
+        $this->books->removeElement($book);
 
         return $this;
     }
