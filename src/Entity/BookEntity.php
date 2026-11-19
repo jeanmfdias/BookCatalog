@@ -30,6 +30,10 @@ class BookEntity
     #[ORM\JoinTable(name: 'book_author')]
     private Collection $authors;
 
+    #[ORM\ManyToMany(targetEntity: SubjectEntity::class, inversedBy: 'subjects')]
+    #[ORm\JoinTable(name: 'book_subject')]
+    private Collection $subjects;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -100,6 +104,27 @@ class BookEntity
     public function removeAuthor(AuthorEntity $author): static
     {
         $this->authors->removeElement($author);
+
+        return $this;
+    }
+
+    public function getSubjects(): Collection
+    {
+        return $this->subjects;
+    }
+
+    public function addSubject(SubjectEntity $subject): static
+    {
+        if (!$this->subjects->contains($subject)) {
+            $this->subjects->add($subject);
+        }
+
+        return $this;
+    }
+
+    public function removeSubject(SubjectEntity $subject): static
+    {
+        $this->subjects->removeElement($subject);
 
         return $this;
     }

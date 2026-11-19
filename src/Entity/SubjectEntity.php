@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SubjectEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SubjectEntityRepository::class)]
@@ -15,6 +16,10 @@ class SubjectEntity
 
     #[ORM\Column(length: 20)]
     private ?string $description = null;
+
+    #[ORM\ManyToMany(targetEntity: BookEntity::class, inversedBy: 'books')]
+    #[ORM\JoinTable(name: 'book_subject')]
+    private Collection $books;
 
     public function getId(): ?int
     {
@@ -29,6 +34,27 @@ class SubjectEntity
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getBooks(): Collection
+    {
+        return $this->books;
+    }
+
+    public function addBook(BookEntity $book): static
+    {
+        if (!$this->books->contains($book)) {
+            $this->books->add($book);
+        }
+
+        return $this;
+    }
+
+    public function removeBook(BookEntity $book): static
+    {
+        $this->books->removeElement($book);
 
         return $this;
     }
