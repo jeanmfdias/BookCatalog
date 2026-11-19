@@ -18,6 +18,13 @@ services:
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
 ###< doctrine/doctrine-bundle ###
+  app:
+    container_name: bookcatalog-app
+    build: infra/php
+    depends_on:
+      - database
+    volumes:
+      - ./:/var/www:rw
 
 volumes:
 ###> doctrine/doctrine-bundle ###
