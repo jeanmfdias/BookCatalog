@@ -31,6 +31,21 @@ services:
     networks:
       - bookcatalog_network
 
+  webserver:
+    container_name: bookcatalog-web
+    image: nginx:latest
+    depends_on:
+      - database
+      - app
+    volumes:
+      - ./:/var/www:rw
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - bookcatalog_network
+
 volumes:
 ###> doctrine/doctrine-bundle ###
   database_data:

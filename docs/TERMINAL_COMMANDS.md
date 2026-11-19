@@ -21,3 +21,11 @@ docker compose --env-file .env.dev up --build -d
 docker exec bookcatalog-app php bin/console make:migration
 
 docker exec bookcatalog-app php bin/console doctrine:migrations:migrate
+
+composer require symfony/webpack-encore-bundle symfony/ux-turbo symfony/stimulus-bundle
+
+npm install
+
+npm i bootstrap@6.0.0-alpha.1 --save-dev
+
+npm i sass-loader@^17.0.0 sass --save-dev
