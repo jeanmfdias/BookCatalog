@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BookEntityRepository::class)]
+#[ORM\Table(name: 'books')]
 class BookEntity
 {
     #[ORM\Id]
@@ -28,10 +29,14 @@ class BookEntity
 
     #[ORM\ManyToMany(targetEntity: AuthorEntity::class, inversedBy: 'books')]
     #[ORM\JoinTable(name: 'book_author')]
+    #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'author_id', referencedColumnName: 'id')]
     private Collection $authors;
 
     #[ORM\ManyToMany(targetEntity: SubjectEntity::class, inversedBy: 'subjects')]
     #[ORm\JoinTable(name: 'book_subject')]
+    #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'subject_id', referencedColumnName: 'id')]
     private Collection $subjects;
 
     public function getId(): ?int
