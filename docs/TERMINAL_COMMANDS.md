@@ -34,4 +34,8 @@ composer require symfony/ux-pagination
 
 php bin/console make:form SubjectFilter
 
-php bin/console make:form CreateSubject 
+php bin/console make:form CreateSubject
+
+php bin/console make:form EditSubject
+
+docker exec bookcatalog-app php bin/console doctrine:schema:validate

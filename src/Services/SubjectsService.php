@@ -63,4 +63,13 @@ class SubjectsService
 
         return (new SubjectDto)->handleSubject($subject);
     }
+
+    public function delete(int $id): bool
+    {
+        $subject = $this->subjectRepository->find($id);
+
+        $this->subjectRepository->remove($subject, true);
+
+        return true;
+    }
 }

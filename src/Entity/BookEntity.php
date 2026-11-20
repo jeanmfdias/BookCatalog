@@ -33,7 +33,7 @@ class BookEntity
     #[ORM\InverseJoinColumn(name: 'author_id', referencedColumnName: 'id')]
     private Collection $authors;
 
-    #[ORM\ManyToMany(targetEntity: SubjectEntity::class, inversedBy: 'subjects')]
+    #[ORM\ManyToMany(targetEntity: SubjectEntity::class, inversedBy: 'books')]
     #[ORm\JoinTable(name: 'book_subject')]
     #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
     #[ORM\InverseJoinColumn(name: 'subject_id', referencedColumnName: 'id')]

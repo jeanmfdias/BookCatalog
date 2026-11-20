@@ -19,7 +19,7 @@ class SubjectEntity
     #[ORM\Column(length: 20)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: BookEntity::class, mappedBy: 'books')]
+    #[ORM\ManyToMany(targetEntity: BookEntity::class, mappedBy: 'subjects')]
     private Collection $books;
 
     public function getId(): ?int

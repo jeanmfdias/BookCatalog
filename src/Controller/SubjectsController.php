@@ -95,9 +95,11 @@ final class SubjectsController extends ControllerBase
         ]);
     }
 
-    #[Route('/subjects/{id}', name: 'subjects_delete', methods: 'DELETE')]
-    public function delete(): Response
+    #[Route('/subjects/{id}/delete', name: 'subjects_delete', methods: 'DELETE')]
+    public function delete(int $id): Response
     {
-        return $this->render('subjects/show.html.twig');
+        $this->subjectsService->delete($id);
+        $this->addFlash('success', "Registro #{$id} excluído com sucesso");
+        return $this->redirectToRoute('subjects_index');
     }
 }

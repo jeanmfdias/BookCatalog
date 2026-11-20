@@ -4,3 +4,10 @@
         <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 {% endfor %}
+
+{% for message in app.flashes('success') %}
+    <div class="alert theme-success" role="alert">
+        <p>{{ message }}</p>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
