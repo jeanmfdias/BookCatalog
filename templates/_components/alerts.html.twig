@@ -1,0 +1,6 @@
+{% for message in app.flashes('error') %}
+    <div class="alert theme-danger" role="alert">
+        <p>{{ message }}</p>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}

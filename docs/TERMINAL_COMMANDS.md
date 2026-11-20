@@ -33,3 +33,5 @@ npm i sass-loader@^17.0.0 sass --save-dev
 composer require symfony/ux-pagination
 
 php bin/console make:form SubjectFilter
+
+php bin/console make:form CreateSubject 

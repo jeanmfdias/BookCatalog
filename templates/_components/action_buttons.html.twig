@@ -1,5 +1,5 @@
 <div class="btn-group" role="group" aria-label="Basic example">
-    <a href="{{ path(pathName ~ '_show') }}" class="btn-solid btn-sm theme-primary">Ver</a>
+    <a href="{{ path(pathName ~ '_show', {id: id}) }}" class="btn-solid btn-sm theme-primary">Ver</a>
     <a href="{{ path(pathName ~ '_edit') }}" class="btn-solid btn-sm theme-warning">Editar</a>
     <a href="{{ path(pathName ~ '_delete') }}" class="btn-solid btn-sm theme-danger">Excluir</a>
 </div>

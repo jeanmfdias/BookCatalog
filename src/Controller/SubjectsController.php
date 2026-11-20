@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\DTO\Subject\FilterDto;
+use App\DTO\Subject\SubjectDto;
+use App\Form\CreateSubjectType;
 use App\Form\SubjectFilterType;
 use App\Services\SubjectsService;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,24 +39,44 @@ final class SubjectsController extends AbstractController
     }
 
     #[Route('/subjects/new', name: 'subjects_new')]
-    public function new(): Response
+    public function new(Request $request): Response
     {
-        return $this->render('subjects/new.html.twig');
+        $newSubject = new SubjectDto();
+        $createForm = $this->createForm(CreateSubjectType::class, $newSubject);
+
+        if ($request->isMethod('POST')) {
+            try {
+                $createForm->handleRequest($request);
+throw new Exception('123');
+                $subject = $this->subjectsService->create($newSubject);
+
+                return $this->redirectToRoute('subjects_show', ['id' => $subject->getId()]);
+            } catch (Exception $e) {
+                $this->addFlash('error', 'Erro ao salvar');
+            }
+        }
+
+        return $this->render('subjects/new.html.twig', [
+            'createForm' => $createForm
+        ]);
     }
 
-    #[Route('/subjects/show', name: 'subjects_show')]
-    public function show(): Response
+    #[Route('/subjects/{id}', name: 'subjects_show', requirements: ['page' => '[0-9]+'])]
+    public function show(int $id): Response
+    {
+        $subjectDto = $this->subjectsService->getOne($id);
+        return $this->render('subjects/show.html.twig', [
+            'subject' => $subjectDto
+        ]);
+    }
+
+    #[Route('/subjects/{id}/edit', name: 'subjects_edit', methods: 'PUT')]
+    public function edit(Request $request, int $id): Response
     {
         return $this->render('subjects/show.html.twig');
     }
 
-    #[Route('/subjects/edit', name: 'subjects_edit')]
-    public function edit(): Response
-    {
-        return $this->render('subjects/show.html.twig');
-    }
-
-    #[Route('/subjects/delete', name: 'subjects_delete')]
+    #[Route('/subjects/{id}', name: 'subjects_delete', methods: 'DELETE')]
     public function delete(): Response
     {
         return $this->render('subjects/show.html.twig');

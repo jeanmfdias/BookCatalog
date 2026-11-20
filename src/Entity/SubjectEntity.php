@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\DTO\Subject\SubjectDto;
 use App\Repository\SubjectEntityRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -56,6 +57,12 @@ class SubjectEntity
     {
         $this->books->removeElement($book);
 
+        return $this;
+    }
+
+    public function handleDto(SubjectDto $subjectDto): static
+    {
+        $this->setDescription($subjectDto->description);
         return $this;
     }
 }

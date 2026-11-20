@@ -9,6 +9,8 @@
 
 ## Como executar
 
+Criar o dotenv local `cp .env .env.dev`
+
 Compilar os assets `npm run dev`
 
 Via docker `docker compose --env-file .env.dev up -d`

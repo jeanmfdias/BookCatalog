@@ -23,7 +23,7 @@
                     <th scope="row">{{ subject.id }}</th>
                     <td>{{ subject.description }}</td>
                     <td>
-                        {{ include('_components/action_buttons.html.twig', {pathName: 'subjects'}) }}
+                        {{ include('_components/action_buttons.html.twig', {pathName: 'subjects', id: subject.id}) }}
                     </td>
                 </tr>
             {% endfor %}

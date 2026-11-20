@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}Assunto #{{ subject.id }}{% endblock %}
+
+{% block body %}
+
+    <p>
+        <label>ID</label>
+        {{ subject.id }}
+    </p>
+
+    <p>
+        <label>Descrição</label>
+        {{ subject.description }}
+    </p>
+
+{% endblock %}
