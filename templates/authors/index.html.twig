@@ -1,20 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AuthorsController!{% endblock %}
+{% block title %}Listagem de Autores{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {{ form(filterForm) }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/jean/Projects/BookCatalog/src/Controller/AuthorsController.php</code></li>
-        <li>Your template at <code>/Users/jean/Projects/BookCatalog/templates/authors/index.html.twig</code></li>
-    </ul>
-</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">
+                    Ações
+                    <a href="{{ path('subjects_new') }}" class="btn-solid btn-sm theme-primary">Novo</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subject in subjects %}
+                <tr>
+                    <th scope="row">{{ subject.id }}</th>
+                    <td>{{ subject.description }}</td>
+                    <td>
+                        {{ include('_components/action_buttons.html.twig', {pathName: 'subjects', id: subject.id}) }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            {% if subjects %}
+                <tr>
+                    <td colspan="3">
+                        {{ ux_pagination(subjects, theme: '@UXPagination/theme/bootstrap.html.twig') }}
+                    </td>
+                </tr>
+            {% endif %}
+        </tfoot>
+    </table>
+
 {% endblock %}

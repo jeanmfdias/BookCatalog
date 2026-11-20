@@ -10,9 +10,11 @@ class SubjectDto
 
     public ?string $description = null;
 
-    public function handleSubject(SubjectEntity $subject)
+    public function handleSubject(SubjectEntity $subject): static
     {
         $this->id = $subject->getId();
         $this->description = $subject->getDescription();
+
+        return $this;
     }
 }

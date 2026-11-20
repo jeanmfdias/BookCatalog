@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\DTO\Subject\FilterDto;
 use App\DTO\Subject\SubjectDto;
 use App\Form\CreateSubjectType;
+use App\Form\EditSubjectType;
 use App\Form\SubjectFilterType;
 use App\Services\SubjectsService;
 use Exception;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\UX\Pagination\PaginatorInterface;
 
-final class SubjectsController extends AbstractController
+final class SubjectsController extends ControllerBase
 {
     public function __construct(private SubjectsService $subjectsService)
     { }
@@ -29,7 +30,7 @@ final class SubjectsController extends AbstractController
         $subjectsQb = $this->subjectsService->listWithFilter($filter);
 
         $subjects = $paginator->query($subjectsQb)
-            ->perPage(2)
+            ->perPage(self::PER_PAGE)
             ->paginate();
 
         return $this->render('subjects/index.html.twig', [
@@ -47,10 +48,10 @@ final class SubjectsController extends AbstractController
         if ($request->isMethod('POST')) {
             try {
                 $createForm->handleRequest($request);
-throw new Exception('123');
+
                 $subject = $this->subjectsService->create($newSubject);
 
-                return $this->redirectToRoute('subjects_show', ['id' => $subject->getId()]);
+                return $this->redirectToRoute('subjects_show', ['id' => $subject->id]);
             } catch (Exception $e) {
                 $this->addFlash('error', 'Erro ao salvar');
             }
@@ -70,10 +71,28 @@ throw new Exception('123');
         ]);
     }
 
-    #[Route('/subjects/{id}/edit', name: 'subjects_edit', methods: 'PUT')]
+    #[Route('/subjects/{id}/edit', name: 'subjects_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, int $id): Response
     {
-        return $this->render('subjects/show.html.twig');
+        $subjectEdit = $this->subjectsService->getOne($id);
+        $editForm = $this->createForm(EditSubjectType::class, $subjectEdit);
+
+        if ($request->isMethod('POST')) {
+            try {
+                $editForm->handleRequest($request);
+
+                $subject = $this->subjectsService->update($subjectEdit);
+            } catch (Exception $e) {
+                $this->addFlash('error', 'Erro ao atualizar');
+            }
+
+            return $this->redirectToRoute('subjects_show', ['id' => $subject->id]);
+        }
+
+        return $this->render('subjects/edit.html.twig', [
+            'editForm' => $editForm,
+            'subject' => $subjectEdit,
+        ]);
     }
 
     #[Route('/subjects/{id}', name: 'subjects_delete', methods: 'DELETE')]

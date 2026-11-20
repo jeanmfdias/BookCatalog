@@ -43,13 +43,24 @@ class SubjectsService
         return $qb;
     }
 
-    public function create(SubjectDto $subjectDto): SubjectEntity
+    public function create(SubjectDto $subjectDto): SubjectDto
     {
         $subject = new SubjectEntity();
         $subject->handleDto($subjectDto);
 
         $this->subjectRepository->add($subject, true);
 
-        return $subject;
+        return (new SubjectDto)->handleSubject($subject);
+    }
+
+    public function update(SubjectDto $subjectDto): SubjectDto
+    {
+        $subject = $this->subjectRepository->find($subjectDto->id);
+
+        $subject->setDescription($subjectDto->description);
+
+        $this->subjectRepository->update();
+
+        return (new SubjectDto)->handleSubject($subject);
     }
 }

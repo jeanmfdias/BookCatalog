@@ -26,6 +26,11 @@ class SubjectEntityRepository extends ServiceEntityRepository
         }
     }
 
+    public function update(): void
+    {
+        $this->getEntityManager()->flush();
+    }
+
     public function remove(SubjectEntity $subject, bool $flush = false): void
     {
         $this->getEntityManager()->remove($subject);
