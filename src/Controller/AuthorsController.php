@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class AuthorsController extends AbstractController
 {
-    #[Route('/authors', name: 'app_authors')]
+    #[Route('/authors', name: 'authors_index', methods: 'get')]
     public function index(): Response
     {
         return $this->render('authors/index.html.twig', [

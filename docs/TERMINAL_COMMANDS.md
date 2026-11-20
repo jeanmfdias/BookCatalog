@@ -29,3 +29,7 @@ npm install
 npm i bootstrap@6.0.0-alpha.1 --save-dev
 
 npm i sass-loader@^17.0.0 sass --save-dev
+
+composer require symfony/ux-pagination
+
+php bin/console make:form SubjectFilter
