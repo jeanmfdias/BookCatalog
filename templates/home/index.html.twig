@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catálogo de Livros{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col d-grid">
+                <a href="{{ path('subjects_index')}}" class="btn-solid theme-primary">Assuntos</a>
+            </div>
+            <div class="col d-grid">
+                <a href="{{ path('authors_index')}}" class="btn-solid theme-primary">Autores</a>
+            </div>
+            <div class="col d-grid">
+                <a href="{{ path('books_index')}}" class="btn-solid theme-primary">Livros</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
