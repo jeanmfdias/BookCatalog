@@ -1,9 +1,9 @@
-<div class="btn-group" role="group" aria-label="btn-actions">
-    <a href="{{ path(pathName ~ '_show', {id: id}) }}" class="btn-solid btn-sm theme-primary">Ver</a>
-    <a href="{{ path(pathName ~ '_edit', {id: id}) }}" class="btn-solid btn-sm theme-warning">Editar</a>
-    <form action="{{ path(pathName ~ '_delete', {id: id}) }}" method="POST" onsubmit="return confirm('Deseja realmente excluir?');">
-        <input type="hidden" name="_method" value="DELETE">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ id) }}">
+<form action="{{ path(pathName ~ '_delete', {id: id}) }}" method="POST" onsubmit="return confirm('Deseja realmente excluir?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ id) }}">
+    <div class="btn-group" role="group" aria-label="btn-actions">
+        <a href="{{ path(pathName ~ '_show', {id: id}) }}" class="btn-solid btn-sm theme-primary">Ver</a>
+        <a href="{{ path(pathName ~ '_edit', {id: id}) }}" class="btn-solid btn-sm theme-warning">Editar</a>
         <button type="submit" class="btn-solid btn-sm theme-danger">Excluir</button>
-    </form>
-</div>
+    </div>
+</form>
