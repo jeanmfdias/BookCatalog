@@ -15,9 +15,9 @@ Compilar os assets `npm run dev`
 
 Via docker `docker compose --env-file .env.dev up -d`
 
-Para rodar os testes `docker exec bookcatalog-app php bin/phpunit`
+Para rodar os testes `docker exec bookcatalog-app composer run test`
 
-Para rodar os testes com comentários `docker exec bookcatalog-app php bin/phpunit --testdox`
+Para rodar os testes com comentários `docker exec bookcatalog-app composer run testdox`
 
 ## Documentação
 

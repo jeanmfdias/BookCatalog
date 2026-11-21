@@ -98,7 +98,8 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "test": "php bin/phpunit test"
+        "test": "php bin/console --env=test doctrine:fixtures:load --append --no-interaction && php bin/phpunit",
+        "testdox": "php bin/console --env=test doctrine:fixtures:load --append --no-interaction && php bin/phpunit --testdox"
     },
     "conflict": {
         "symfony/symfony": "*"
