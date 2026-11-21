@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\BookEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,28 +17,34 @@ class BookEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, BookEntity::class);
     }
 
-//    /**
-//     * @return BookEntity[] Returns an array of BookEntity objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('b.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+public function add(BookEntity $book, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($book);
 
-//    public function findOneBySomeField($value): ?BookEntity
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function update(): void
+    {
+        $this->getEntityManager()->flush();
+    }
+
+    public function remove(BookEntity $book, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($book);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function selectAll(): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->orderBy('b.title', 'asc');
+
+        return $qb;
+    }
 }

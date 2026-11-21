@@ -70,13 +70,13 @@ final class AuthorsController extends ControllerBase
         ]);
     }
 
-    #[Route('/authors/{id}/edit', name: 'authors_edit', methods: ['GET', 'POST'])]
+    #[Route('/authors/{id}/edit', name: 'authors_edit', methods: ['GET', 'PUT'])]
     public function edit(Request $request, int $id): Response
     {
         $authorEdit = $this->authorsService->getOne($id);
         $editForm = $this->createForm(AuthorEditType::class, $authorEdit);
 
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('PUT')) {
             try {
                 $editForm->handleRequest($request);
 

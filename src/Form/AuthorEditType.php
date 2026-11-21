@@ -32,7 +32,7 @@ class AuthorEditType extends AbstractType
         $resolver->setDefaults([
             'data_class' => AuthorDto::class,
             'crsf_protection' => true,
-            'method' => 'POST'
+            'method' => 'PUT'
         ]);
     }
 }

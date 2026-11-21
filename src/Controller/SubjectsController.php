@@ -71,13 +71,13 @@ final class SubjectsController extends ControllerBase
         ]);
     }
 
-    #[Route('/subjects/{id}/edit', name: 'subjects_edit', methods: ['GET', 'POST'])]
+    #[Route('/subjects/{id}/edit', name: 'subjects_edit', methods: ['GET', 'PUT'])]
     public function edit(Request $request, int $id): Response
     {
         $subjectEdit = $this->subjectsService->getOne($id);
         $editForm = $this->createForm(EditSubjectType::class, $subjectEdit);
 
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('PUT')) {
             try {
                 $editForm->handleRequest($request);
 

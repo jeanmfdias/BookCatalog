@@ -28,7 +28,7 @@ class EditSubjectType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SubjectDto::class,
-            'method' => 'POST',
+            'method' => 'PUT',
             'csrf_protection' => true
         ]);
     }

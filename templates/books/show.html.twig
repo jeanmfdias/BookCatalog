@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}Livro #{{ book.id }}{% endblock %}
+
+{% block body %}
+
+    <p>
+        <label>ID:</label>
+        {{ book.id }}
+    </p>
+
+    <p>
+        <label>Título:</label>
+        {{ book.title }}
+    </p>
+
+    <p>
+        <label>Editora:</label>
+        {{ book.publisher }}
+    </p>
+
+    <p>
+        <label>Ano de Publicação:</label>
+        {{ book.published_year }}
+    </p>
+
+    <p>
+        <label>Edição:</label>
+        {{ book.edition }}
+    </p>
+
+    <p>
+        <label>Autor(es):</label>
+        {% for author in book.authors %}
+            {{ author.name }},
+        {% endfor %}
+    </p>
+
+    <p>
+        <label>Assunto(s):</label>
+        {% for subject in book.subjects %}
+            {{ subject.description }},
+        {% endfor %}
+    </p>
+
+{% endblock %}

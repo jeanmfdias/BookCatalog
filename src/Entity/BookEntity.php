@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\DTO\Book\BookDto;
 use App\Repository\BookEntityRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -80,12 +81,12 @@ class BookEntity
         return $this;
     }
 
-    public function getPublishedYear(): ?string
+    public function getPublished_year(): ?string
     {
         return $this->published_year;
     }
 
-    public function setPublishedYear(string $published_year): static
+    public function setPublished_year(string $published_year): static
     {
         $this->published_year = $published_year;
 
@@ -131,6 +132,21 @@ class BookEntity
     {
         $this->subjects->removeElement($subject);
 
+        return $this;
+    }
+
+    public function handleDto(BookDto $bookDto): static
+    {
+        $this->setTitle($bookDto->title);
+        $this->setPublisher($bookDto->publisher);
+        $this->setPublished_year($bookDto->published_year);
+        $this->setEdition($bookDto->edition);
+        foreach ($bookDto->authors as $author) {
+            $this->addAuthor($author);
+        }
+        foreach ($bookDto->subjects as $subject) {
+            $this->addSubject($subject);
+        }
         return $this;
     }
 }

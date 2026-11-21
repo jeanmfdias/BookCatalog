@@ -1,20 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BooksController!{% endblock %}
+{% block title %}Listagem de Livros{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {{ form(filterForm) }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/jean/Projects/BookCatalog/src/Controller/BooksController.php</code></li>
-        <li>Your template at <code>/Users/jean/Projects/BookCatalog/templates/books/index.html.twig</code></li>
-    </ul>
-</div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Editora</th>
+                    <th scope="col">Ano de Publicação</th>
+                    <th scope="col">Edição</th>
+                    <th scope="col">Autor(es)</th>
+                    <th scope="col">Assunto(s)</th>
+                    <th scope="col">
+                        Ações
+                        <a href="{{ path('books_new') }}" class="btn-solid btn-sm theme-primary">Novo</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <th scope="row">{{ book.id }}</th>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.publisher }}</td>
+                        <td>{{ book.published_year }}</td>
+                        <td>{{ book.edition }}</td>
+                        <td>{{ book.authors|map(a => a.name)|join(', ') }}</td>
+                        <td>{{ book.subjects|map(s => s.description)|join(', ') }}</td>
+                        <td>
+                            {{ include('_components/action_buttons.html.twig', {pathName: 'books', id: book.id}) }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                {% if books.count > 10 %}
+                    <tr>
+                        <td colspan="3">
+                            {{ ux_pagination(books, theme: '@UXPagination/theme/bootstrap.html.twig') }}
+                        </td>
+                    </tr>
+                {% endif %}
+            </tfoot>
+        </table>
+    </div>
+
 {% endblock %}

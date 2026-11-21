@@ -45,3 +45,9 @@ php bin/console make:form AuthorFilter
 php bin/console make:form AuthorCreate
 
 php bin/console make:form AuthorEdit
+
+php bin/console make:form BookFilter
+
+php bin/console make:form BookCreate
+
+php bin/console make:form BookEdit
