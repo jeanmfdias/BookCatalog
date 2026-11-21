@@ -4,6 +4,8 @@
 
 {% block body %}
 
+    {% include "_components/breadcrumb.html.twig" with { module: 'subjects', label: 'assunto', child: null } %}
+
     {{ form(filterForm) }}
 
     <table class="table">

@@ -19,7 +19,10 @@ class EditSubjectType extends AbstractType
                 'label' => 'Descrição',
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Editar'
+                'label' => 'Editar',
+                'attr' => [
+                    'class' => 'btn-solid theme-warning'
+                ]
             ])
         ;
     }

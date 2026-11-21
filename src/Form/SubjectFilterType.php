@@ -16,6 +16,9 @@ class SubjectFilterType extends AbstractType
             ->add('search', TextType::class, [
                 'label' => 'Descrição/ID',
                 'required' => false,
+                'attr' => [
+                    'placeholder' => 'Buscar por descrição ou ID'
+                ]
             ]);
     }
 

@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\DTO\Subject\SubjectDto;
+use App\Exceptions\Subject\SubjectHandleException;
 use App\Repository\SubjectEntityRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 
 #[ORM\Entity(repositoryClass: SubjectEntityRepository::class)]
 #[ORM\Table(name: 'subjects')]
@@ -62,7 +64,12 @@ class SubjectEntity
 
     public function handleDto(SubjectDto $subjectDto): static
     {
-        $this->setDescription($subjectDto->description);
+        try {
+            $this->setDescription($subjectDto->description);
+        } catch (Exception $e) {
+            throw new SubjectHandleException('Erro ao atribuir DTO à Entidade.');
+        }
+
         return $this;
     }
 }

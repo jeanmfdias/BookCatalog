@@ -3,6 +3,8 @@
 namespace App\DTO\Subject;
 
 use App\Entity\SubjectEntity;
+use App\Exceptions\Subject\SubjectHandleException;
+use Exception;
 
 class SubjectDto
 {
@@ -12,8 +14,12 @@ class SubjectDto
 
     public function handleSubject(SubjectEntity $subject): static
     {
-        $this->id = $subject->getId();
-        $this->description = $subject->getDescription();
+        try {
+            $this->id = $subject->getId();
+            $this->description = $subject->getDescription();
+        } catch (Exception $e) {
+            throw new SubjectHandleException('Erro ao atribuir Entidade ao DTO.');
+        }
 
         return $this;
     }

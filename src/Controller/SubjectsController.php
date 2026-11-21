@@ -4,14 +4,15 @@ namespace App\Controller;
 
 use App\DTO\Subject\FilterDto;
 use App\DTO\Subject\SubjectDto;
+use App\Exceptions\Subject\SubjectHandleException;
 use App\Form\CreateSubjectType;
 use App\Form\EditSubjectType;
 use App\Form\SubjectFilterType;
 use App\Services\SubjectsService;
 use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\UX\Pagination\PaginatorInterface;
 
@@ -54,8 +55,10 @@ final class SubjectsController extends ControllerBase
                 $this->addFlash('success', 'Assunto criado com sucesso.');
 
                 return $this->redirectToRoute('subjects_show', ['id' => $subject->id]);
+            } catch (SubjectHandleException $e) {
+                $this->addFlash('error', $e->getMessage());
             } catch (Exception $e) {
-                $this->addFlash('error', 'Erro ao salvar');
+                $this->addFlash('error', 'Erro interno ao salvar um assunto.');
             }
         }
 
@@ -67,43 +70,65 @@ final class SubjectsController extends ControllerBase
     #[Route('/subjects/{id}', name: 'subjects_show', requirements: ['page' => '[0-9]+'])]
     public function show(int $id): Response
     {
-        $subjectDto = $this->subjectsService->getOne($id);
-        return $this->render('subjects/show.html.twig', [
-            'subject' => $subjectDto
-        ]);
+        try {
+            $subjectDto = $this->subjectsService->getOne($id);
+            return $this->render('subjects/show.html.twig', [
+                'subject' => $subjectDto
+            ]);
+        } catch (SubjectHandleException $e) {
+            $this->addFlash('error', $e->getMessage());
+        } catch (NotFoundHttpException $e) {
+            $this->addFlash('warning', $e->getMessage());
+        } catch (Exception $e) {
+            $this->addFlash('error', 'Erro interno ao recuperar o assunto.');
+        }
+
+        return $this->redirectToRoute('subjects_index');
     }
 
     #[Route('/subjects/{id}/edit', name: 'subjects_edit', methods: ['GET', 'PUT'])]
     public function edit(Request $request, int $id): Response
     {
-        $subjectEdit = $this->subjectsService->getOne($id);
-        $editForm = $this->createForm(EditSubjectType::class, $subjectEdit);
+        try {
+            $subjectEdit = $this->subjectsService->getOne($id);
+            $editForm = $this->createForm(EditSubjectType::class, $subjectEdit);
 
-        if ($request->isMethod('PUT')) {
-            try {
+            if ($request->isMethod('PUT')) {
                 $editForm->handleRequest($request);
 
                 $subject = $this->subjectsService->update($subjectEdit);
-            } catch (Exception $e) {
-                $this->addFlash('error', 'Erro ao atualizar');
+
+                $this->addFlash('success', 'Assunto editado com sucesso.');
+
+                return $this->redirectToRoute('subjects_show', ['id' => $subject->id]);
             }
 
-            $this->addFlash('success', 'Assunto editado com sucesso.');
-
-            return $this->redirectToRoute('subjects_show', ['id' => $subject->id]);
+            return $this->render('subjects/edit.html.twig', [
+                'editForm' => $editForm,
+                'subject' => $subjectEdit,
+            ]);
+        } catch (SubjectHandleException $e) {
+            $this->addFlash('error', $e->getMessage());
+        } catch (NotFoundHttpException $e) {
+            $this->addFlash('warning', $e->getMessage());
+        } catch (Exception $e) {
+            $this->addFlash('error', 'Erro interno ao atualizar um assunto.');
         }
 
-        return $this->render('subjects/edit.html.twig', [
-            'editForm' => $editForm,
-            'subject' => $subjectEdit,
-        ]);
+        return $this->redirectToRoute('subjects_index');
     }
 
     #[Route('/subjects/{id}/delete', name: 'subjects_delete', methods: 'DELETE')]
     public function delete(int $id): Response
     {
-        $this->subjectsService->delete($id);
-        $this->addFlash('success', "Registro #{$id} excluído com sucesso.");
+        try {
+            $this->subjectsService->delete($id);
+            $this->addFlash('success', "Registro #{$id} excluído com sucesso.");
+        } catch (NotFoundHttpException $e) {
+            $this->addFlash('warning', $e->getMessage());
+        } catch (Exception $e) {
+            $this->addFlash('error', 'Erro interno ao excluir o assunto.');
+        }
         return $this->redirectToRoute('subjects_index');
     }
 }

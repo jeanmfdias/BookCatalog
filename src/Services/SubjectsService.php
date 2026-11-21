@@ -7,6 +7,7 @@ use App\DTO\Subject\SubjectDto;
 use App\Entity\SubjectEntity;
 use App\Repository\SubjectEntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SubjectsService
 {
@@ -18,7 +19,7 @@ class SubjectsService
 
     public function getOne(int $id): SubjectDto
     {
-        $subject = $this->subjectRepository->find($id);
+        $subject = $this->find($id);
 
         $subjectDto = new SubjectDto();
         $subjectDto->handleSubject($subject);
@@ -55,7 +56,7 @@ class SubjectsService
 
     public function update(SubjectDto $subjectDto): SubjectDto
     {
-        $subject = $this->subjectRepository->find($subjectDto->id);
+        $subject = $this->find($subjectDto->id);
 
         $subject->setDescription($subjectDto->description);
 
@@ -66,10 +67,21 @@ class SubjectsService
 
     public function delete(int $id): bool
     {
-        $subject = $this->subjectRepository->find($id);
+        $subject = $this->find($id);
 
         $this->subjectRepository->remove($subject, true);
 
         return true;
+    }
+
+    private function find(int $id): SubjectEntity
+    {
+        $subject = $this->subjectRepository->find($id);
+
+        if (!$subject) {
+            throw new NotFoundHttpException('Assunto não encontrado.');
+        }
+
+        return $subject;
     }
 }
