@@ -51,3 +51,14 @@ php bin/console make:form BookFilter
 php bin/console make:form BookCreate
 
 php bin/console make:form BookEdit
+
+docker exec bookcatalog-app php bin/console --env=test doctrine:database:create
+
+docker exec bookcatalog-app php bin/console --env=test doctrine:schema:create
+
+composer require --dev dama/doctrine-test-bundle
+
+composer require --dev doctrine/doctrine-fixtures-bundle
+
+php bin/console make:fixtures # 3x para cada Entity
+
