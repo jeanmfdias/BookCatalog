@@ -22,7 +22,10 @@ class AuthorCreateType extends AbstractType
                 'label' => 'Nome'
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Salvar'
+                'label' => 'Salvar',
+                'attr' => [
+                    'class' => 'btn-solid theme-success'
+                ]
             ])
         ;
     }

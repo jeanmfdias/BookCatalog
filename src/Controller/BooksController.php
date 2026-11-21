@@ -51,6 +51,8 @@ final class BooksController extends ControllerBase
 
                 $book = $this->booksService->create($newBook);
 
+                $this->addFlash('success', 'Livro criado com sucesso.');
+
                 return $this->redirectToRoute('books_show', ['id' => $book->id]);
             } catch (Exception $e) {
                 $this->addFlash('error', 'Erro ao salvar');
@@ -86,6 +88,8 @@ final class BooksController extends ControllerBase
                 $this->addFlash('error', 'Erro ao atualizar');
             }
 
+            $this->addFlash('success', 'Livro editado com sucesso.');
+
             return $this->redirectToRoute('books_show', ['id' => $book->id]);
         }
 
@@ -99,7 +103,7 @@ final class BooksController extends ControllerBase
     public function delete(int $id): Response
     {
         $this->booksService->delete($id);
-        $this->addFlash('success', "Registro #{$id} excluído com sucesso");
+        $this->addFlash('success', "Registro #{$id} excluído com sucesso.");
         return $this->redirectToRoute('books_index');
     }
 }

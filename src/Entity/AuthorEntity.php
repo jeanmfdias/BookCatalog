@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\DTO\Author\AuthorDto;
+use App\Exceptions\Author\AuthorHandleException;
 use App\Repository\AuthorEntityRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 
 #[ORM\Entity(repositoryClass: AuthorEntityRepository::class)]
 #[ORM\Table(name: 'authors')]
@@ -62,7 +64,11 @@ class AuthorEntity
 
     public function handleDto(AuthorDto $authorDto): static
     {
-        $this->setName($authorDto->name);
+        try {
+            $this->setName($authorDto->name);
+        } catch (Exception $e) {
+            throw new AuthorHandleException('Erro ao atribuir DTO na Entidade.', $e->getCode());
+        }
         return $this;
     }
 }

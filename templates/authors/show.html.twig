@@ -4,6 +4,8 @@
 
 {% block body %}
 
+    {% include "_components/breadcrumb.html.twig" with { module: 'authors', label: 'autor', child: 'visualizar' } %}
+
     <p>
         <label>ID:</label>
         {{ author.id }}

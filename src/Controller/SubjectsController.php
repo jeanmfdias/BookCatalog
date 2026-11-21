@@ -51,6 +51,8 @@ final class SubjectsController extends ControllerBase
 
                 $subject = $this->subjectsService->create($newSubject);
 
+                $this->addFlash('success', 'Assunto criado com sucesso.');
+
                 return $this->redirectToRoute('subjects_show', ['id' => $subject->id]);
             } catch (Exception $e) {
                 $this->addFlash('error', 'Erro ao salvar');
@@ -86,6 +88,8 @@ final class SubjectsController extends ControllerBase
                 $this->addFlash('error', 'Erro ao atualizar');
             }
 
+            $this->addFlash('success', 'Assunto editado com sucesso.');
+
             return $this->redirectToRoute('subjects_show', ['id' => $subject->id]);
         }
 
@@ -99,7 +103,7 @@ final class SubjectsController extends ControllerBase
     public function delete(int $id): Response
     {
         $this->subjectsService->delete($id);
-        $this->addFlash('success', "Registro #{$id} excluído com sucesso");
+        $this->addFlash('success', "Registro #{$id} excluído com sucesso.");
         return $this->redirectToRoute('subjects_index');
     }
 }

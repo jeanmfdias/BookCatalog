@@ -7,6 +7,7 @@ use App\DTO\Author\AuthorDto;
 use App\Entity\AuthorEntity;
 use App\Repository\AuthorEntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AuthorsService
 {
@@ -18,7 +19,7 @@ class AuthorsService
 
     public function getOne(int $id): AuthorDto
     {
-        $author = $this->authorRepository->find($id);
+        $author = $this->find($id);
 
         $authorDto = new AuthorDto();
         $authorDto->handleAuthor($author);
@@ -55,7 +56,7 @@ class AuthorsService
 
     public function update(AuthorDto $authorDto): AuthorDto
     {
-        $author = $this->authorRepository->find($authorDto->id);
+        $author = $this->find($authorDto->id);
 
         $author->setName($authorDto->name);
 
@@ -66,10 +67,21 @@ class AuthorsService
 
     public function delete(int $id): bool
     {
-        $author = $this->authorRepository->find($id);
+        $author = $this->find($id);
 
         $this->authorRepository->remove($author, true);
 
         return true;
+    }
+
+    private function find(int $id): AuthorEntity
+    {
+        $author = $this->authorRepository->find($id);
+
+        if (!$author) {
+            throw new NotFoundHttpException('Autor não encontrado.');
+        }
+
+        return $author;
     }
 }

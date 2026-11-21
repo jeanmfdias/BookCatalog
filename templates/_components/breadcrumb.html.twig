@@ -1,0 +1,17 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a class="breadcrumb-link" href="{{ path('home_index') }}">Home</a>
+        </li>
+        <li class="breadcrumb-divider"></li>
+        <li class="breadcrumb-item">
+            <a class="breadcrumb-link" href="{{ path(module ~ '_index') }}">{{ label|capitalize }}</a>
+        </li>
+        {% if child %}
+            <li class="breadcrumb-divider"></li>
+            <li class="breadcrumb-item" aria-current="page">
+                <a class="breadcrumb-link active" href="#">{{ child|capitalize }}</a>
+            </li>
+        {% endif %}
+    </ol>
+</nav>
