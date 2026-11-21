@@ -61,3 +61,9 @@ composer require --dev dama/doctrine-test-bundle
 composer require --dev doctrine/doctrine-fixtures-bundle
 
 php bin/console make:fixtures # 3x para cada Entity
+
+docker exec bookcatalog-app php bin/console --env=test doctrine:database:drop --force
+
+docker exec bookcatalog-app php bin/console --env=test doctrine:database:create
+
+docker exec bookcatalog-app php bin/console --env=test doctrine:schema:create

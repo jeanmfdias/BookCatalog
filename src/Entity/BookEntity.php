@@ -28,6 +28,9 @@ class BookEntity
     #[ORM\Column(length: 4)]
     private ?string $published_year = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $price = null;
+
     #[ORM\ManyToMany(targetEntity: AuthorEntity::class, inversedBy: 'books')]
     #[ORM\JoinTable(name: 'book_author')]
     #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
@@ -93,6 +96,18 @@ class BookEntity
         return $this;
     }
 
+    public function getPrice(): float
+    {
+        return $this->price ?? 0;
+    }
+
+    public function setPrice(float $price): static
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
     public function getAuthors(): Collection
     {
         return $this->authors;
@@ -141,6 +156,7 @@ class BookEntity
         $this->setPublisher($bookDto->publisher);
         $this->setPublished_year($bookDto->published_year);
         $this->setEdition($bookDto->edition);
+        $this->setPrice($bookDto->price);
         foreach ($bookDto->authors as $author) {
             $this->addAuthor($author);
         }

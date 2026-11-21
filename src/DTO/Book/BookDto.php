@@ -18,6 +18,8 @@ class BookDto
 
     public ?int $edition = null;
 
+    public ?float $price = null;
+
     public ?Collection $authors = null;
 
     public ?Collection $subjects = null;
@@ -29,6 +31,7 @@ class BookDto
         $this->publisher = $book->getPublisher();
         $this->published_year = $book->getPublished_year();
         $this->edition = $book->getEdition();
+        $this->price = $book->getPrice();
         $this->authors = $book->getAuthors();
         $this->subjects = $book->getSubjects();
 

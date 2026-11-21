@@ -33,6 +33,10 @@ class BookEditType extends AbstractType
                 'required' => true,
                 'label' => 'Ano de publicação',
             ])
+            ->add('price', TextType::class, [
+                'required' => false,
+                'label' => 'Valor (R$)'
+            ])
             ->add('authors', EntityType::class, [
                 'class' => AuthorEntity::class,
                 'choice_label' => 'name',
