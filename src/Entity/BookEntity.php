@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\DTO\Book\BookDto;
+use App\Exceptions\Book\BookHandleException;
 use App\Repository\BookEntityRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 
 #[ORM\Entity(repositoryClass: BookEntityRepository::class)]
 #[ORM\Table(name: 'books')]
@@ -152,16 +154,20 @@ class BookEntity
 
     public function handleDto(BookDto $bookDto): static
     {
-        $this->setTitle($bookDto->title);
-        $this->setPublisher($bookDto->publisher);
-        $this->setPublished_year($bookDto->published_year);
-        $this->setEdition($bookDto->edition);
-        $this->setPrice($bookDto->price);
-        foreach ($bookDto->authors as $author) {
-            $this->addAuthor($author);
-        }
-        foreach ($bookDto->subjects as $subject) {
-            $this->addSubject($subject);
+        try {
+            $this->setTitle($bookDto->title);
+            $this->setPublisher($bookDto->publisher);
+            $this->setPublished_year($bookDto->published_year);
+            $this->setEdition($bookDto->edition);
+            $this->setPrice($bookDto->price);
+            foreach ($bookDto->authors as $author) {
+                $this->addAuthor($author);
+            }
+            foreach ($bookDto->subjects as $subject) {
+                $this->addSubject($subject);
+            }
+        } catch (Exception $e) {
+            throw new BookHandleException('Erro ao atribuir o DTO na Entidade.', $e->getCode());
         }
         return $this;
     }

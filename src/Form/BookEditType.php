@@ -56,7 +56,10 @@ class BookEditType extends AbstractType
                 'attr' => ['class' => 'form-select'],
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Editar'
+                'label' => 'Editar',
+                'attr' => [
+                    'class' => 'btn-solid theme-warning'
+                ]
             ])
         ;
     }

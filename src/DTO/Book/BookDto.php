@@ -4,7 +4,9 @@ namespace App\DTO\Book;
 
 use App\Entity\AuthorEntity;
 use App\Entity\BookEntity;
+use App\Exceptions\Book\BookHandleException;
 use Doctrine\Common\Collections\Collection;
+use Exception;
 
 class BookDto
 {
@@ -26,14 +28,18 @@ class BookDto
 
     public function handleBook(BookEntity $book): static
     {
-        $this->id = $book->getId();
-        $this->title = $book->getTitle();
-        $this->publisher = $book->getPublisher();
-        $this->published_year = $book->getPublished_year();
-        $this->edition = $book->getEdition();
-        $this->price = $book->getPrice();
-        $this->authors = $book->getAuthors();
-        $this->subjects = $book->getSubjects();
+        try {
+            $this->id = $book->getId();
+            $this->title = $book->getTitle();
+            $this->publisher = $book->getPublisher();
+            $this->published_year = $book->getPublished_year();
+            $this->edition = $book->getEdition();
+            $this->price = $book->getPrice();
+            $this->authors = $book->getAuthors();
+            $this->subjects = $book->getSubjects();
+        } catch (Exception $e) {
+            throw new BookHandleException('Erro ao atribuir a Entidade no DTO.', $e->getCode());
+        }
 
         return $this;
     }

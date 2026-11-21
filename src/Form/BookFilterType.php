@@ -19,7 +19,10 @@ class BookFilterType extends AbstractType
         $builder
             ->add('search', TextType::class, [
                 'required' => false,
-                'label' => 'Título/ID'
+                'label' => 'Título/ID',
+                'attr' => [
+                    'placeholder' => 'Buscar por título ou ID'
+                ]
             ])
         ;
     }

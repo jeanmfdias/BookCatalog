@@ -60,7 +60,10 @@ class BookCreateType extends AbstractType
                 'required' => false,
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Salvar'
+                'label' => 'Salvar',
+                'attr' => [
+                    'class' => 'btn-solid theme-success'
+                ]
             ])
         ;
     }

@@ -4,6 +4,8 @@
 
 {% block body %}
 
+    {% include "_components/breadcrumb.html.twig" with { module: 'books', label: 'livro', child: 'novo' } %}
+
     {{ form(createForm) }}
 
 {% endblock %}

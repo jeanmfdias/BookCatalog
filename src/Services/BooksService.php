@@ -7,18 +7,19 @@ use App\DTO\Book\BookDto;
 use App\Entity\BookEntity;
 use App\Repository\BookEntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BooksService
 {
 
     public function __construct(private BookEntityRepository $bookRepository)
     {
-
+        //
     }
 
     public function getOne(int $id): BookDto
     {
-        $book = $this->bookRepository->find($id);
+        $book = $this->find($id);
 
         $bookDto = new BookDto();
         $bookDto->handleBook($book);
@@ -55,7 +56,7 @@ class BooksService
 
     public function update(BookDto $bookDto): BookDto
     {
-        $book = $this->bookRepository->find($bookDto->id);
+        $book = $this->find($bookDto->id);
 
         $book->handleDto($bookDto);
 
@@ -66,10 +67,21 @@ class BooksService
 
     public function delete(int $id): bool
     {
-        $book = $this->bookRepository->find($id);
+        $book = $this->find($id);
 
         $this->bookRepository->remove($book, true);
 
         return true;
+    }
+
+    private function find(int $id): BookEntity
+    {
+        $book = $this->bookRepository->find($id);
+
+        if (!$book) {
+            throw new NotFoundHttpException('Livro não encontrado.');
+        }
+
+        return $book;
     }
 }
