@@ -2,17 +2,103 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\DTO\Author\AuthorDto;
+use App\DTO\Author\FilterDto;
+use App\Form\AuthorCreateType;
+use App\Form\AuthorEditType;
+use App\Form\AuthorFilterType;
+use App\Services\AuthorsService;
+use Exception;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\UX\Pagination\PaginatorInterface;
 
-final class AuthorsController extends AbstractController
+final class AuthorsController extends ControllerBase
 {
-    #[Route('/authors', name: 'authors_index', methods: 'get')]
-    public function index(): Response
+    public function __construct(private AuthorsService $authorsService)
+    { }
+
+    #[Route('/authors', name: 'authors_index')]
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
+        $filter = new FilterDto();
+        $filterForm = $this->createForm(AuthorFilterType::class, $filter);
+        $filterForm->handleRequest($request);
+
+        $authorsQb = $this->authorsService->listWithFilter($filter);
+
+        $authors = $paginator->query($authorsQb)
+            ->perPage(self::PER_PAGE)
+            ->paginate();
+
         return $this->render('authors/index.html.twig', [
-            'controller_name' => 'AuthorsController',
+            'authors' => $authors,
+            'filterForm' => $filterForm,
         ]);
+    }
+
+    #[Route('/authors/new', name: 'authors_new')]
+    public function new(Request $request): Response
+    {
+        $newAuthor = new AuthorDto();
+        $createForm = $this->createForm(AuthorCreateType::class, $newAuthor);
+
+        if ($request->isMethod('POST')) {
+            try {
+                $createForm->handleRequest($request);
+
+                $author = $this->authorsService->create($newAuthor);
+
+                return $this->redirectToRoute('authors_show', ['id' => $author->id]);
+            } catch (Exception $e) {
+                $this->addFlash('error', 'Erro ao salvar');
+            }
+        }
+
+        return $this->render('authors/new.html.twig', [
+            'createForm' => $createForm
+        ]);
+    }
+
+    #[Route('/authors/{id}', name: 'authors_show', requirements: ['page' => '[0-9]+'])]
+    public function show(int $id): Response
+    {
+        $authorDto = $this->authorsService->getOne($id);
+        return $this->render('authors/show.html.twig', [
+            'author' => $authorDto
+        ]);
+    }
+
+    #[Route('/authors/{id}/edit', name: 'authors_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, int $id): Response
+    {
+        $authorEdit = $this->authorsService->getOne($id);
+        $editForm = $this->createForm(AuthorEditType::class, $authorEdit);
+
+        if ($request->isMethod('POST')) {
+            try {
+                $editForm->handleRequest($request);
+
+                $author = $this->authorsService->update($authorEdit);
+            } catch (Exception $e) {
+                $this->addFlash('error', 'Erro ao atualizar');
+            }
+
+            return $this->redirectToRoute('authors_show', ['id' => $author->id]);
+        }
+
+        return $this->render('authors/edit.html.twig', [
+            'editForm' => $editForm,
+            'author' => $authorEdit,
+        ]);
+    }
+
+    #[Route('/authors/{id}/delete', name: 'authors_delete', methods: 'DELETE')]
+    public function delete(int $id): Response
+    {
+        $this->authorsService->delete($id);
+        $this->addFlash('success', "Registro #{$id} excluído com sucesso");
+        return $this->redirectToRoute('authors_index');
     }
 }

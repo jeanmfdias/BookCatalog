@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title  %}Autor #{{ author.id }}{% endblock %}
+
+{% block body %}
+
+    <p>
+        <label>ID:</label>
+        {{ author.id }}
+    </p>
+
+    <p>
+        <label>Nome:</label>
+        {{ author.name }}
+    </p>
+
+{% endblock %}

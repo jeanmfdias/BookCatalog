@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\AuthorEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,28 +17,34 @@ class AuthorEntityRepository extends ServiceEntityRepository
         parent::__construct($registry, AuthorEntity::class);
     }
 
-//    /**
-//     * @return AuthorEntity[] Returns an array of AuthorEntity objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function add(AuthorEntity $author, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($author);
 
-//    public function findOneBySomeField($value): ?AuthorEntity
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function update(): void
+    {
+        $this->getEntityManager()->flush();
+    }
+
+    public function remove(AuthorEntity $author, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($author);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function selectAll(): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->orderBy('a.name', 'asc');
+
+        return $qb;
+    }
 }

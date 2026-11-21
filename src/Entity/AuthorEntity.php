@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\DTO\Author\AuthorDto;
 use App\Repository\AuthorEntityRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -56,6 +57,12 @@ class AuthorEntity
     {
         $this->books->removeElement($book);
 
+        return $this;
+    }
+
+    public function handleDto(AuthorDto $authorDto): static
+    {
+        $this->setName($authorDto->name);
         return $this;
     }
 }

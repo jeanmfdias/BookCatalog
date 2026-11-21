@@ -10,29 +10,29 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Descrição</th>
+                <th scope="col">Nome</th>
                 <th scope="col">
                     Ações
-                    <a href="{{ path('subjects_new') }}" class="btn-solid btn-sm theme-primary">Novo</a>
+                    <a href="{{ path('authors_new') }}" class="btn-solid btn-sm theme-primary">Novo</a>
                 </th>
             </tr>
         </thead>
         <tbody>
-            {% for subject in subjects %}
+            {% for author in authors %}
                 <tr>
-                    <th scope="row">{{ subject.id }}</th>
-                    <td>{{ subject.description }}</td>
+                    <th scope="row">{{ author.id }}</th>
+                    <td>{{ author.name }}</td>
                     <td>
-                        {{ include('_components/action_buttons.html.twig', {pathName: 'subjects', id: subject.id}) }}
+                        {{ include('_components/action_buttons.html.twig', {pathName: 'authors', id: author.id}) }}
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
         <tfoot>
-            {% if subjects %}
+            {% if authors.count > 10 %}
                 <tr>
                     <td colspan="3">
-                        {{ ux_pagination(subjects, theme: '@UXPagination/theme/bootstrap.html.twig') }}
+                        {{ ux_pagination(authors, theme: '@UXPagination/theme/bootstrap.html.twig') }}
                     </td>
                 </tr>
             {% endif %}

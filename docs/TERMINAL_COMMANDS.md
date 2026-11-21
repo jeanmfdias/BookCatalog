@@ -39,3 +39,9 @@ php bin/console make:form CreateSubject
 php bin/console make:form EditSubject
 
 docker exec bookcatalog-app php bin/console doctrine:schema:validate
+
+php bin/console make:form AuthorFilter
+
+php bin/console make:form AuthorCreate
+
+php bin/console make:form AuthorEdit
