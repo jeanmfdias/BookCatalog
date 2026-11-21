@@ -47,6 +47,7 @@ class BookCreateType extends AbstractType
                 'by_reference' => false,
                 'label' => 'Autor(es)',
                 'attr' => ['class' => 'form-select'],
+                'required' => false,
             ])
             ->add('subjects', EntityType::class, [
                 'class' => SubjectEntity::class,
@@ -56,6 +57,7 @@ class BookCreateType extends AbstractType
                 'by_reference' => false,
                 'label' => 'Assunto(s)',
                 'attr' => ['class' => 'form-select'],
+                'required' => false,
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Salvar'

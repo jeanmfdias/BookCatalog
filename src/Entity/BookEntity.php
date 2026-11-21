@@ -108,9 +108,9 @@ class BookEntity
         return $this;
     }
 
-    public function getAuthors(): Collection
+    public function getAuthors(): ?Collection
     {
-        return $this->authors;
+        return $this->authors ?? null;
     }
 
     public function addAuthor(AuthorEntity $author): static
@@ -129,9 +129,9 @@ class BookEntity
         return $this;
     }
 
-    public function getSubjects(): Collection
+    public function getSubjects(): ?Collection
     {
-        return $this->subjects;
+        return $this->subjects ?? null;
     }
 
     public function addSubject(SubjectEntity $subject): static
