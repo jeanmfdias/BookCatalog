@@ -51,6 +51,8 @@ class BooksService
 
         $this->bookRepository->add($book, true);
 
+        $this->postCreateBook($bookDto, $book);
+
         return (new BookDto)->handleBook($book);
     }
 
@@ -83,5 +85,12 @@ class BooksService
         }
 
         return $book;
+    }
+
+    private function postCreateBook(BookDto $bookDto, BookEntity $book): void
+    {
+        $book->handleDto($bookDto);
+
+        $this->bookRepository->update();
     }
 }

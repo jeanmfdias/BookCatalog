@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\DTO\Book\BookDto;
 use App\Exceptions\Book\BookHandleException;
 use App\Repository\BookEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
+use Psr\Log\LoggerInterface;
+use Throwable;
 
 #[ORM\Entity(repositoryClass: BookEntityRepository::class)]
 #[ORM\Table(name: 'books')]
@@ -44,6 +46,12 @@ class BookEntity
     #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
     #[ORM\InverseJoinColumn(name: 'subject_id', referencedColumnName: 'id')]
     private Collection $subjects;
+
+    public function __construct()
+    {
+        $this->authors = new ArrayCollection();
+        $this->subjects = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -160,13 +168,25 @@ class BookEntity
             $this->setPublished_year($bookDto->published_year);
             $this->setEdition($bookDto->edition);
             $this->setPrice($bookDto->price);
-            foreach ($bookDto->authors as $author) {
-                $this->addAuthor($author);
+            if ($this->getId()) {
+                foreach ($this->getAuthors() as $author) {
+                    if (!$bookDto->authors->contains($author)) {
+                        $this->removeAuthor($author);
+                    }
+                }
+                foreach ($bookDto->authors as $author) {
+                    $this->addAuthor($author);
+                }
+                foreach ($this->getSubjects() as $subject) {
+                    if (!$bookDto->subjects->contains($subject)) {
+                        $this->removeSubject($subject);
+                    }
+                }
+                foreach ($bookDto->subjects as $subject) {
+                    $this->addSubject($subject);
+                }
             }
-            foreach ($bookDto->subjects as $subject) {
-                $this->addSubject($subject);
-            }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new BookHandleException('Erro ao atribuir o DTO na Entidade.', $e->getCode());
         }
         return $this;

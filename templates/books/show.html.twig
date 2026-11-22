@@ -38,16 +38,12 @@
 
     <p>
         <label>Autores:</label>
-        {% for author in book.authors %}
-            {{ author.name }},
-        {% endfor %}
+        {{ book.authors|map(a => a.name)|join(', ') }}
     </p>
 
     <p>
         <label>Assuntos:</label>
-        {% for subject in book.subjects %}
-            {{ subject.description }},
-        {% endfor %}
+        {{ book.subjects|map(s => s.description)|join(', ') }}
     </p>
 
 {% endblock %}

@@ -7,7 +7,7 @@ use App\Exceptions\Author\AuthorHandleException;
 use App\Repository\AuthorEntityRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
+use Throwable;
 
 #[ORM\Entity(repositoryClass: AuthorEntityRepository::class)]
 #[ORM\Table(name: 'authors')]
@@ -66,7 +66,7 @@ class AuthorEntity
     {
         try {
             $this->setName($authorDto->name);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new AuthorHandleException('Erro ao atribuir DTO na Entidade.', $e->getCode());
         }
         return $this;

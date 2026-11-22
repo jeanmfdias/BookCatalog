@@ -9,6 +9,8 @@ use App\Entity\SubjectEntity;
 use Dom\Text;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,17 +29,30 @@ class BookCreateType extends AbstractType
                 'required' => true,
                 'label' => 'Editora',
             ])
-            ->add('edition', TextType::class, [
+            ->add('edition', IntegerType::class, [
                 'required' => true,
                 'label' => 'Edição',
+                'attr' => [
+                    'min' => 1
+                ]
             ])
-            ->add('published_year', TextType::class, [
+            ->add('published_year', IntegerType::class, [
                 'required' => true,
                 'label' => 'Ano de publicação',
+                'attr' => [
+                    'placeholder' => '1900',
+                    'min' => 0,
+                    'max' => 9999
+                ]
             ])
-            ->add('price', TextType::class, [
+            ->add('price', MoneyType::class, [
                 'required' => false,
-                'label' => 'Valor (R$)'
+                'label' => 'Valor (R$)',
+                'currency' => 'BRL',
+                'attr' => [
+                    'placeholder' => '0,00',
+                    'class' => 'form-control',
+                ],
             ])
             ->add('authors', EntityType::class, [
                 'class' => AuthorEntity::class,
@@ -45,8 +60,10 @@ class BookCreateType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'by_reference' => false,
-                'label' => 'Autor(es)',
-                'attr' => ['class' => 'form-select'],
+                'label' => 'Autores',
+                'attr' => [
+                    'class' => 'form-control'
+                ],
                 'required' => false,
             ])
             ->add('subjects', EntityType::class, [
@@ -55,8 +72,10 @@ class BookCreateType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'by_reference' => false,
-                'label' => 'Assunto(s)',
-                'attr' => ['class' => 'form-select'],
+                'label' => 'Assuntos',
+                'attr' => [
+                    'class' => 'form-control'
+                ],
                 'required' => false,
             ])
             ->add('save', SubmitType::class, [

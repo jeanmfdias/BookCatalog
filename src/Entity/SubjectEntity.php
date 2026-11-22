@@ -7,7 +7,7 @@ use App\Exceptions\Subject\SubjectHandleException;
 use App\Repository\SubjectEntityRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
+use Throwable;
 
 #[ORM\Entity(repositoryClass: SubjectEntityRepository::class)]
 #[ORM\Table(name: 'subjects')]
@@ -66,7 +66,7 @@ class SubjectEntity
     {
         try {
             $this->setDescription($subjectDto->description);
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             throw new SubjectHandleException('Erro ao atribuir DTO à Entidade.');
         }
 
