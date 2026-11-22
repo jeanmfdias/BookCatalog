@@ -5,7 +5,11 @@
         </li>
         <li class="breadcrumb-divider"></li>
         <li class="breadcrumb-item">
-            <a class="breadcrumb-link" href="{{ path(module ~ '_index') }}">{{ label|capitalize }}</a>
+            {% if module %}
+                <a class="breadcrumb-link" href="{{ path(module ~ '_index') }}">{{ label|capitalize }}</a>
+            {% else %}
+                <a class="breadcrumb-link" href="#">{{ label|capitalize }}</a>
+            {% endif %}
         </li>
         {% if child %}
             <li class="breadcrumb-divider"></li>

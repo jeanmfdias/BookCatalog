@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Relatório de livros por autores{% endblock %}
+
+{% block body %}
+
+    {% include "_components/breadcrumb.html.twig" with { module: null, label: 'relatório', child: 'livros por autores' } %}
+
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>Author</th>
+                <th>Total de Livros</th>
+            </tr>
+            {% for book in books %}
+                <tr>
+                    <td>{{ book.author_name }}</td>
+                    <td>{{ book.total_books }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
