@@ -1,4 +1,4 @@
-<nav class="navbar md:navbar-expand bg-1">
+<nav class="navbar md:navbar-expand bg-1 no-print">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Catálogo de Livros</a>
         <button class="btn-icon navbar-toggler" type="button" data-bs-toggle="drawer" data-bs-target="#navbarDrawer" aria-controls="navbarDrawer" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +28,7 @@
                             Relatórios
                         </button>
                         <div class="menu">
+                            <a class="menu-item" href="{{ path('report_book_all_details') }}">Catálogo detalhado</a>
                             <a class="menu-item" href="{{ path('report_book_by_author') }}">Volume de publicação por autores</a>
                             <a class="menu-item" href="#">Volume de publicação por assuntos</a>
                         </div>

@@ -30,22 +30,8 @@ class ViewBookByAuthor
         return $this->author_name;
     }
 
-    public function setAuthor_name(string $author_name): static
-    {
-        $this->author_name = $author_name;
-
-        return $this;
-    }
-
     public function getTotal_books(): ?int
     {
         return $this->total_books;
-    }
-
-    public function setTotal_books(int $total_books): static
-    {
-        $this->total_books = $total_books;
-
-        return $this;
     }
 }

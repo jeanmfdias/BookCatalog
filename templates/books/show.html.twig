@@ -37,14 +37,14 @@
     </p>
 
     <p>
-        <label>Autor(es):</label>
+        <label>Autores:</label>
         {% for author in book.authors %}
             {{ author.name }},
         {% endfor %}
     </p>
 
     <p>
-        <label>Assunto(s):</label>
+        <label>Assuntos:</label>
         {% for subject in book.subjects %}
             {{ subject.description }},
         {% endfor %}
