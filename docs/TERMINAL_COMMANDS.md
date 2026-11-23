@@ -75,3 +75,11 @@ docker exec bookcatalog-app php bin/console doctrine:migrations:migrate
 docker exec bookcatalog-app php bin/console doctrine:migrations:generate
 
 docker exec bookcatalog-app php bin/console doctrine:migrations:migrate
+
+composer require symfony/stimulus-bundle
+
+npm install sweetalert2 --save-dev
+
+npm install @symfony/stimulus-bridge @hotwired/stimulus --save-dev
+
+npm install @symfony/ux-turbo @hotwired/turbo --save-dev

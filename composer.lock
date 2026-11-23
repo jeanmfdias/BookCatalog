@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9df85105da5f344758570d37537557f8",
+    "content-hash": "324b1ed4768c0a2017aa92ca227df58d",
     "packages": [
         {
             "name": "composer/semver",
@@ -6649,16 +6649,16 @@
         },
         {
             "name": "symfony/stimulus-bundle",
-            "version": "v3.7.0",
+            "version": "v3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stimulus-bundle.git",
-                "reference": "1ec378de88cd2414a57504b77a1c64712d09355c"
+                "reference": "73b7f7dd24fc7d0f103ec1f03e48452f70792772"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/1ec378de88cd2414a57504b77a1c64712d09355c",
-                "reference": "1ec378de88cd2414a57504b77a1c64712d09355c",
+                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/73b7f7dd24fc7d0f103ec1f03e48452f70792772",
+                "reference": "73b7f7dd24fc7d0f103ec1f03e48452f70792772",
                 "shasum": ""
             },
             "require": {
@@ -6701,7 +6701,7 @@
                 "symfony-ux"
             ],
             "support": {
-                "source": "https://github.com/symfony/stimulus-bundle/tree/v3.7.0"
+                "source": "https://github.com/symfony/stimulus-bundle/tree/v3.8.0"
             },
             "funding": [
                 {
@@ -6721,8 +6721,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-11-04T08:53:23+00:00",
-            "published-time": "2026-11-04T08:54:28+00:00"
+            "time": "2026-11-22T06:49:09+00:00",
+            "published-time": "2026-11-22T06:52:37+00:00"
         },
         {
             "name": "symfony/stopwatch",
