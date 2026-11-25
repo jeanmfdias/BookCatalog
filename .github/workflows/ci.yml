@@ -10,25 +10,42 @@ jobs:
     env:
       APP_ENV: test
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: user_test
+          POSTGRES_PASSWORD: password_test
+          POSTGRES_DB: db_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v6
       - name: Iniciando o PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.5'
-          extensions: pdo, pdo_sqlite, intl, ctype, iconv
+          extensions: pdo, pdo_pgsql, pgsql, intl, ctype, iconv
           tools: composer:v2
-
-      - name: Criando .env file
-        working-directory: ./
-        run: cp .env.test .env.test.local
 
       - name: Instalando as dependências do composer
         working-directory: ./
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Executando o PHPUnit
-        working-directory: ./
+        env:
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: db_test
+          DB_USERNAME: user_test
+          DB_PASSWORD: password_test
         run: bin/phpunit
 
 
