@@ -39,6 +39,6 @@ jobs:
           php bin/console --env=test doctrine:schema:create
 
       - name: Executando o PHPUnit
-        run: php bin/phpunit
+        run: composer run test
 
 
