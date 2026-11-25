@@ -9,6 +9,7 @@ jobs:
 
     env:
       APP_ENV: test
+      DATABASE_URL: postgresql://user_test:password_test@127.0.0.1:5432/db_test?serverVersion=16&charset=utf8
 
     services:
       postgres:
@@ -30,31 +31,14 @@ jobs:
           tools: composer:v2
 
       - name: Instalando as dependências do composer
-        working-directory: ./
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Executando o Migrações
-        env:
-          DB_CONNECTION: pgsql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 5432
-          DB_DATABASE: db_test
-          DB_USERNAME: user_test
-          DB_PASSWORD: password_test
-          DATABASE_URL: postgresql://user_test:password_test@127.0.0.1:5432/db_test?serverVersion=16&charset=utf8
         run: |
           php bin/console --env=test doctrine:database:create --if-not-exists
           php bin/console --env=test doctrine:schema:create
 
       - name: Executando o PHPUnit
-        env:
-          DB_CONNECTION: pgsql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 5432
-          DB_DATABASE: db_test
-          DB_USERNAME: user_test
-          DB_PASSWORD: password_test
-          DATABASE_URL: postgresql://user_test:password_test@127.0.0.1:5432/db_test?serverVersion=16&charset=utf8
         run: php bin/phpunit
 
 
