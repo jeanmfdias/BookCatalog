@@ -23,6 +23,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+
+      - name: Configurando Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Instalando e compilando assets
+        run: |
+          npm install
+          npm run dev
+
       - name: Iniciando o PHP
         uses: shivammathur/setup-php@v2
         with:
