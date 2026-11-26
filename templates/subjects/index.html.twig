@@ -11,9 +11,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col" class="text-end" style="width: 8%">#</th>
                 <th scope="col">Descrição</th>
-                <th scope="col">
+                <th scope="col" style="width: 10%">
                     Ações
                     <a href="{{ path('subjects_new') }}" class="btn-solid btn-sm theme-primary">Novo</a>
                 </th>
@@ -22,7 +22,7 @@
         <tbody>
             {% for subject in subjects %}
                 <tr>
-                    <th scope="row">{{ subject.id }}</th>
+                    <th scope="row" class="text-end">{{ subject.id }}</th>
                     <td>{{ subject.description }}</td>
                     <td>
                         {{ include('_components/action_buttons.html.twig', {pathName: 'subjects', id: subject.id}) }}

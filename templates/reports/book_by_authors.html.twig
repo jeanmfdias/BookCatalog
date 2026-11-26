@@ -10,12 +10,12 @@
         <table class="table table-striped">
             <tr>
                 <th>Author</th>
-                <th>Total de Livros</th>
+                <th class="text-end">Total de Livros</th>
             </tr>
             {% for book in books %}
                 <tr>
                     <td>{{ book.author_name }}</td>
-                    <td>{{ book.total_books }}</td>
+                    <td class="text-end">{{ book.total_books }}</td>
                 </tr>
             {% endfor %}
         </table>

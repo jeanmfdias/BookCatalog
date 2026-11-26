@@ -12,15 +12,15 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col" class="text-end" style="width: 8%">#</th>
                     <th scope="col">Título</th>
                     <th scope="col">Editora</th>
-                    <th scope="col">Ano de Publicação</th>
-                    <th scope="col">Edição</th>
-                    <th scope="col">Preço</th>
+                    <th scope="col" class="text-end">Ano de Publicação</th>
+                    <th scope="col" class="text-end">Edição</th>
+                    <th scope="col" class="text-end">Preço</th>
                     <th scope="col">Autores</th>
                     <th scope="col">Assuntos</th>
-                    <th scope="col">
+                    <th scope="col" style="width: 10%">
                         Ações
                         <a href="{{ path('books_new') }}" class="btn-solid btn-sm theme-primary">Novo</a>
                     </th>
@@ -29,12 +29,12 @@
             <tbody>
                 {% for book in books %}
                     <tr>
-                        <th scope="row">{{ book.id }}</th>
+                        <th scope="row" class="text-end">{{ book.id }}</th>
                         <td>{{ book.title }}</td>
                         <td>{{ book.publisher }}</td>
-                        <td>{{ book.published_year }}</td>
-                        <td>{{ book.edition }}</td>
-                        <td><twig:MoneyBrl :value="book.price"></twig:MoneyBrl></td>
+                        <td class="text-end">{{ book.published_year }}</td>
+                        <td class="text-end">{{ book.edition }}</td>
+                        <td class="text-end"><twig:MoneyBrl :value="book.price"></twig:MoneyBrl></td>
                         <td><twig:SeeMore :text="book.authors|map(a => a.name)|join(', ')"></twig:SeeMore></td>
                         <td><twig:SeeMore :text="book.subjects|map(s => s.description)|join(', ')"></twig:SeeMore></td>
                         <td>
