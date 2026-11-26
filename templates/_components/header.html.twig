@@ -12,9 +12,6 @@
             <div class="drawer-body mb-2 md:mb-0">
                 <ul class="nav navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('home_index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{ path('subjects_index') }}">Assuntos</a>
                     </li>
                     <li class="nav-item">
@@ -34,12 +31,12 @@
                         </div>
                     </li>
                 </ul>
-                <form class="hstack gap-2" role="search">
+                {# <form class="hstack gap-2" role="search">
                     <input class="form-control" type="search" placeholder="Search" aria-label="Search"/>
                     <button class="btn-solid btn-icon theme-secondary" type="submit">
                         <svg class="bi" width="16" height="16"><use href="#search" /></svg>
                     </button>
-                </form>
+                </form> #}
             </div>
         </dialog>
     </div>

@@ -72,6 +72,7 @@ final class BooksControllerTest extends WebTestCase
             'book_create[published_year]' => '2000',
             'book_create[edition]' => 1,
             'book_create[price]' => 10,
+            'book_create[isbn]' => 10,
         ]);
 
         $client->followRedirect();
@@ -87,7 +88,8 @@ final class BooksControllerTest extends WebTestCase
         $client->request('GET', '/books/1/edit');
 
         $client->submitForm('Editar', [
-            'book_edit[title]' => 'Teste Livro 2'
+            'book_edit[title]' => 'Teste Livro 2',
+            'book_edit[isbn]' => 'Teste Livro 2'
         ]);
 
         $client->followRedirect();

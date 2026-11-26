@@ -63,6 +63,7 @@ class BooksServiceTest extends KernelTestCase
         $dto->publisher = 'Editora X';
         $dto->price = 100.00;
         $dto->edition = 1;
+        $dto->isbn = 'S124125';
         $dto->authors = new ArrayCollection();
         $dto->subjects = new ArrayCollection();
 
@@ -80,6 +81,7 @@ class BooksServiceTest extends KernelTestCase
         $dto->publisher = 'Editora X';
         $dto->price = 100.00;
         $dto->edition = 1;
+        $dto->isbn = 'S124125';
         $dto->authors = new ArrayCollection();
         $dto->subjects = new ArrayCollection();
         $dto->id = 1;

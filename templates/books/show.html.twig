@@ -37,6 +37,11 @@
     </p>
 
     <p>
+        <label>ISBN:</label>
+        {{ book.isbn }}
+    </p>
+
+    <p>
         <label>Autores:</label>
         {{ book.authors|map(a => a.name)|join(', ') }}
     </p>

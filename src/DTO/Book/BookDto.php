@@ -22,6 +22,8 @@ class BookDto
 
     public ?float $price = null;
 
+    public ?string $isbn = null;
+
     public ?Collection $authors = null;
 
     public ?Collection $subjects = null;
@@ -35,6 +37,7 @@ class BookDto
             $this->published_year = $book->getPublished_year();
             $this->edition = $book->getEdition();
             $this->price = $book->getPrice();
+            $this->isbn = $book->getIsbn();
             $this->authors = $book->getAuthors();
             $this->subjects = $book->getSubjects();
         } catch (Exception $e) {

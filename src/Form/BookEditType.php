@@ -51,6 +51,10 @@ class BookEditType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
+            ->add('isbn', TextType::class, [
+                'required' => true,
+                'label' => 'ISBN',
+            ])
             ->add('authors', EntityType::class, [
                 'class' => AuthorEntity::class,
                 'choice_label' => 'name',

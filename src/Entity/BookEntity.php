@@ -34,6 +34,9 @@ class BookEntity
     #[ORM\Column(nullable: true)]
     private ?float $price = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $isbn = null;
+
     #[ORM\ManyToMany(targetEntity: AuthorEntity::class, inversedBy: 'books')]
     #[ORM\JoinTable(name: 'book_author')]
     #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
@@ -117,6 +120,20 @@ class BookEntity
         return $this;
     }
 
+    public function getIsbn(): ?string
+    {
+        return $this->isbn;
+    }
+
+    public function setIsbn(string $isbn): static
+    {
+        if ($isbn) {
+            $this->isbn = $isbn;
+        }
+
+        return $this;
+    }
+
     public function getAuthors(): ?Collection
     {
         return $this->authors ?? null;
@@ -167,6 +184,7 @@ class BookEntity
             $this->setPublished_year($bookDto->published_year);
             $this->setEdition($bookDto->edition);
             $this->setPrice($bookDto->price);
+            $this->setIsbn($bookDto->isbn);
             if ($this->getId()) {
                 foreach ($this->getAuthors() as $author) {
                     if (!$bookDto->authors->contains($author)) {

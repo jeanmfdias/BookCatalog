@@ -19,6 +19,7 @@ class BookEntityTest extends TestCase
         $dto->published_year = '2000';
         $dto->edition = 1;
         $dto->price = 123.45;
+        $dto->isbn = '12345';
         $entity = new BookEntity();
 
         $entity->handleDto($dto);
