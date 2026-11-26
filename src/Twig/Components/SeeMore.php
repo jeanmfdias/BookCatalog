@@ -11,6 +11,9 @@ final class SeeMore
 
     public function getTextWithSeeMore(): string
     {
-        return mb_substr($this->text, 0, 15) . '...';
+        if (strlen($this->text) > 15) {
+            return mb_substr($this->text, 0, 15) . '...';
+        }
+        return $this->text;
     }
 }
