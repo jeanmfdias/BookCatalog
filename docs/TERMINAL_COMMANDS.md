@@ -83,3 +83,5 @@ npm install sweetalert2 --save-dev
 npm install @symfony/stimulus-bridge @hotwired/stimulus --save-dev
 
 npm install @symfony/ux-turbo @hotwired/turbo --save-dev
+
+docker exec -it bookcatalog-app php bin/console doctrine:fixtures:load --append --no-interaction

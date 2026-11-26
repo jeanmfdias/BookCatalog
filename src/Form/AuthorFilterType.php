@@ -15,7 +15,10 @@ class AuthorFilterType extends AbstractType
         $builder
             ->add('search', TextType::class, [
                 'required' => false,
-                'label' => 'Nome/ID'
+                'label' => 'Nome/ID',
+                'attr' => [
+                    'placeholder' => 'Buscar por nome ou ID'
+                ]
             ])
         ;
     }

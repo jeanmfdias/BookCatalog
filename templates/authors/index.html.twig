@@ -31,7 +31,7 @@
             {% endfor %}
         </tbody>
         <tfoot>
-            {% if authors.count > 10 %}
+            {% if authors %}
                 <tr>
                     <td colspan="3">
                         {{ ux_pagination(authors, theme: '@UXPagination/theme/bootstrap.html.twig') }}
