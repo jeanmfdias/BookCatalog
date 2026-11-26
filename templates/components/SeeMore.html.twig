@@ -1,0 +1,9 @@
+{% if text %}
+<span class="pointer"
+    {{ stimulus_controller('info_popup', {text: text}) }}
+    {{ stimulus_action('info_popup', 'info', 'click') }}>
+    {{ this.textWithSeeMore }}
+</span>
+{% else %}
+    -
+{% endif %}
