@@ -1,13 +1,11 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Relatório completo de livros{% endblock %}
+{% extends 'base_print.html.twig' %}
 
 {% block body %}
 
     {% include "_components/breadcrumb.html.twig" with { module: null, label: 'relatório', child: 'livros todos os detalhes' } %}
 
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Título</th>

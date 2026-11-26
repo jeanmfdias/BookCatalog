@@ -1,0 +1,32 @@
+@use "bootstrap/scss/bootstrap";
+
+@page {
+    size: A4 landscape;
+    margin: 12mm;
+}
+
+@media print {
+    body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 11pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    table,
+    tr {
+       break-inside: avoid;
+    }
+
+    .no-print {
+        display: none;
+    }
+}

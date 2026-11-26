@@ -1,13 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_print.html.twig' %}
 
-{% block title %}Relatório de livros por autores{% endblock %}
+{% block title %}Relatório do Volume de publicações por autores{% endblock %}
 
 {% block body %}
 
     {% include "_components/breadcrumb.html.twig" with { module: null, label: 'relatório', child: 'livros por autores' } %}
 
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped">
             <tr>
                 <th>Author</th>
                 <th>Total de Livros</th>

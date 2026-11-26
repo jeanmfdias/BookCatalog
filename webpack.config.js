@@ -76,6 +76,7 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
     .addStyleEntry('style', './assets/styles/app.scss')
+    .addStyleEntry('print', './assets/styles/print.scss')
 ;
 
 export default await Encore.getWebpackConfig();
