@@ -34,7 +34,7 @@
                         <td>{{ book.publisher }}</td>
                         <td>{{ book.published_year }}</td>
                         <td>{{ book.edition }}</td>
-                        <td>R$ {{ book.price|number_format(2, ',', '.') }}</td>
+                        <td><twig:MoneyBrl :value="book.price"></twig:MoneyBrl></td>
                         <td><twig:SeeMore :text="book.authors|map(a => a.name)|join(', ')"></twig:SeeMore></td>
                         <td><twig:SeeMore :text="book.subjects|map(s => s.description)|join(', ')"></twig:SeeMore></td>
                         <td>

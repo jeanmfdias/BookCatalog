@@ -89,3 +89,7 @@ docker exec -it bookcatalog-app php bin/console doctrine:fixtures:load --append 
 composer require symfony/ux-twig-component
 
 php bin/console make:twig-component
+
+php bin/console make:twig-component
+
+php bin/console make:twig-component

@@ -33,7 +33,7 @@
 
     <p>
         <label>Preço (R$):</label>
-        {{ book.price|number_format(2, ',', '.') }}
+        <twig:MoneyBrl :value="book.price"></twig:MoneyBrl>
     </p>
 
     <p>
