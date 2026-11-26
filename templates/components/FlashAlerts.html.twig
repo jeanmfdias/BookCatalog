@@ -1,0 +1,9 @@
+<div class="alert {{ this.themeClass }} mb-3" role="alert">
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if hasBtnClose %}
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+    {% endif %}
+</div>

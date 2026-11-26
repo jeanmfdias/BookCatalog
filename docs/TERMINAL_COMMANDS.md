@@ -85,3 +85,7 @@ npm install @symfony/stimulus-bridge @hotwired/stimulus --save-dev
 npm install @symfony/ux-turbo @hotwired/turbo --save-dev
 
 docker exec -it bookcatalog-app php bin/console doctrine:fixtures:load --append --no-interaction
+
+composer require symfony/ux-twig-component
+
+php bin/console make:twig-component
